@@ -1,4 +1,5 @@
 import React from "react";
+import { StatusBar } from "expo-status-bar";
 
 import AppLoading from "expo-app-loading";
 import {
@@ -26,6 +27,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme} >
+      <StatusBar  
+        backgroundColor="transparent"
+        style="dark"
+        translucent
+      />
       <SignIn />
     </ThemeProvider>
   );
