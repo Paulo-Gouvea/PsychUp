@@ -11,7 +11,8 @@ export const Container = styled.View`
 export const Logo = styled.View`
     width: ${RFValue(60)}px;
     height: ${RFValue(60)}px;
-    background-color: yellow;
+    align-items: center;
+    justify-content: center;
 
     margin-bottom: ${RFValue(15)}px;
 `;
@@ -59,10 +60,7 @@ export const SocialAccountTitle = styled.Text`
 
 export const SocialAccountButtonWrapper = styled.View`
     margin-top: ${RFValue(14)}px;
-    width: 65%;
-
     flex-direction: row;
-    justify-content: space-between;
 `;
 
 export const SignUpWrapper = styled.View`
@@ -71,7 +69,7 @@ export const SignUpWrapper = styled.View`
     align-items: center;
     justify-content: center;
 
-    margin: ${RFValue(30)}px 0 ${getBottomSpace()};
+    margin: ${RFValue(30)}px 0 ${getBottomSpace()}px;
 `;
 
 export const SignUpQuestion = styled.Text`

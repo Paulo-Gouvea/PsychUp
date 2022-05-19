@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from "react-native";
 
 import {
     Container,
@@ -16,6 +17,11 @@ import {
     SignUpButtonTitle,
 } from "./styles";
 
+import LogoImg from "../../assets/Logo.svg";
+import GoogleImg from "../../assets/Google.svg";
+import AppleImg from "../../assets/Apple.svg";
+import FacebookImg from "../../assets/Facebook.svg";
+
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
@@ -25,7 +31,12 @@ import { SocialAccountButton } from "../../components/SocialAccountButton";
 export function SignIn(){
     return (
         <Container>
-            <Logo />
+            <Logo>
+                <LogoImg 
+                    width={90}
+                    height={90}
+                />
+            </Logo>
 
             <Header
                 title="Seja bem-vindo"
@@ -65,9 +76,29 @@ export function SignIn(){
                 </SocialAccountTitle>
 
                 <SocialAccountButtonWrapper>
-                    <SocialAccountButton />
-                    <SocialAccountButton />
-                    <SocialAccountButton />
+                    <SocialAccountButton 
+                        Icon={GoogleImg}
+                        width={30}
+                        height={30}
+                        onPress={() => console.log("Botão do Google")}
+                    />
+
+                    {
+                        Platform.OS === "ios" &&
+                        <SocialAccountButton 
+                            Icon={AppleImg}
+                            width={40}
+                            height={40}
+                            onPress={() => console.log("Botão da Apple")}
+                        />      
+                    }
+
+                    <SocialAccountButton 
+                        Icon={FacebookImg}
+                        width={35}
+                        height={35}
+                        onPress={() => console.log("Botão do Facebook")}
+                    />
                 </SocialAccountButtonWrapper>
             </SocialAccountWrapper>
 
@@ -75,7 +106,9 @@ export function SignIn(){
                 <SignUpQuestion>
                     Não tem uma conta?
                 </SignUpQuestion>
-                <SignUpButton>
+                <SignUpButton
+                    onPress={() => console.log("Botão de criar conta")}
+                >
                     <SignUpButtonTitle>
                         Crie aqui
                     </SignUpButtonTitle>

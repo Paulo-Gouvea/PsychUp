@@ -13,4 +13,6 @@ export const Container = styled(TouchableOpacity)`
 
     align-items: center;
     justify-content: center;
+
+    margin: 0 ${RFValue(12)}px 0;
 `;
