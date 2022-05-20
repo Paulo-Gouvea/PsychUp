@@ -22,6 +22,8 @@ import {
     SignUpButtonTitle,
 } from "./styles";
 
+import { useNavigation } from "@react-navigation/native";
+
 import LogoImg from "../../assets/Logo.svg";
 import GoogleImg from "../../assets/Google.svg";
 import AppleImg from "../../assets/Apple.svg";
@@ -33,7 +35,13 @@ import { PasswordInput } from "../../components/PasswordInput";
 import { Button } from "../../components/Button";
 import { SocialAccountButton } from "../../components/SocialAccountButton";
 
-export function SignIn(){
+export function Login(){
+    const navigation = useNavigation();
+
+    function handleSignUp(){
+        navigation.navigate("signup");
+    }
+
     return (
         <KeyboardAvoidingView behavior="position" enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -115,7 +123,7 @@ export function SignIn(){
                             Não tem uma conta?
                         </SignUpQuestion>
                         <SignUpButton
-                            onPress={() => console.log("Botão de criar conta")}
+                            onPress={handleSignUp}
                         >
                             <SignUpButtonTitle>
                                 Crie aqui

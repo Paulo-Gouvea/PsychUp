@@ -14,12 +14,15 @@ import {
     InputWrapper,
 } from "./styles";
 
+import { useNavigation } from "@react-navigation/native";
+
 import LogoImg from "../../assets/Logo.svg";
 
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
 import { Button } from "../../components/Button";
+import { GoBackButton } from "../../components/GoBackButton";
 
 export function SignUp(){
     const [name, setName] = useState("");
@@ -27,6 +30,12 @@ export function SignUp(){
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const navigation = useNavigation();
+
+    function handleGoBack(){
+        navigation.goBack();
+    }
 
     function handleCreateAccount(){ 
         console.log(`Nome: ${name}, Email: ${email}, celular: ${phoneNumber}, senha: ${password}, confirmacao: ${confirmPassword}`);
@@ -44,6 +53,10 @@ export function SignUp(){
         <KeyboardAvoidingView behavior="position" enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Container>
+                    <GoBackButton 
+                        onPress={handleGoBack}
+                    />
+
                     <Logo>
                         <LogoImg 
                             width={90}

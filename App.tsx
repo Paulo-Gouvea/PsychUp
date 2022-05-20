@@ -12,9 +12,7 @@ import {
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
 
-import { SignIn } from "./src/screens/SignIn";
-import { SignUp } from "./src/screens/SignUp";
-import { Home } from "./src/screens/Home";
+import { Routes } from "./src/routes";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -34,7 +32,7 @@ export default function App() {
         style="dark"
         translucent
       />
-      <SignUp />
+      <Routes />
     </ThemeProvider>
   );
 }

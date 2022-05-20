@@ -3,7 +3,7 @@ import { getStatusBarHeight, getBottomSpace } from "react-native-iphone-x-helper
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const Container = styled.View`
-    padding: ${getStatusBarHeight() + 80}px ${RFValue(25)}px ${getBottomSpace()}px;
+    padding: ${getStatusBarHeight() + 40}px ${RFValue(25)}px ${getBottomSpace()}px;
 `;
 
 export const Logo = styled.View`
@@ -12,7 +12,7 @@ export const Logo = styled.View`
     align-items: center;
     justify-content: center;
 
-    margin-bottom: ${RFValue(15)}px;
+    margin: ${RFValue(25)}px 0;
 `;
 
 export const InputWrapper = styled.View`
