@@ -14,6 +14,7 @@ import theme from "./src/theme";
 
 import { SignIn } from "./src/screens/SignIn";
 import { SignUp } from "./src/screens/SignUp";
+import { Home } from "./src/screens/Home";
 
 export default function App() {
   let [fontsLoaded] = useFonts({

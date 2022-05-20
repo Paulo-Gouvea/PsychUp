@@ -1,8 +1,12 @@
 import { TextInput } from "react-native";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Container = styled.View`
+interface PasswordInputStyleProps {
+    isFocused: boolean;
+}
+
+export const Container = styled.View<PasswordInputStyleProps>`
     width: 100%;
     height: ${RFValue(50)}px;
 
@@ -14,6 +18,10 @@ export const Container = styled.View`
     border-width: 1px;
     border-style: solid;
     border-color: ${({ theme }) => theme.COLORS.GREY_700};
+
+    ${({ theme, isFocused }) => isFocused && css`
+        border-color: ${theme.COLORS.TEAL_900};
+    `};
 `;
 
 export const IconWrapper = styled.View`

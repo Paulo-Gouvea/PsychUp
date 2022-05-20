@@ -4,7 +4,6 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { TouchableOpacity } from "react-native";
 
 export const Container = styled.View`
-    flex: 1;
     padding: ${getStatusBarHeight() + 80}px ${RFValue(25)}px ${getBottomSpace()}px;
 `;
 
