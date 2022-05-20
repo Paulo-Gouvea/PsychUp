@@ -42,6 +42,10 @@ export function Login(){
         navigation.navigate("signup");
     }
 
+    function handleForgotPassword(){
+        navigation.navigate("forgotpassword");
+    }
+
     return (
         <KeyboardAvoidingView behavior="position" enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -78,7 +82,7 @@ export function Login(){
 
                     <ForgetPasswordWrapper>
                         <ForgetPasswordButton
-                            onPress={() => console.log("Botão de esquecer a senha")}
+                            onPress={handleForgotPassword}
                         >
                             <ForgetPasswordButtonTitle>
                                 Esqueceu a sua senha?
