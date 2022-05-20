@@ -21,9 +21,11 @@ import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
 import { GoBackButton } from "../../components/GoBackButton";
+import { AnimationModal } from "../../components/AnimationModal";
 
 export function ForgotPassword(){
     const [email, setEmail] = useState("");
+    const [openModal, setOpenModal] = useState(false);
 
     const navigation = useNavigation();
 
@@ -31,10 +33,26 @@ export function ForgotPassword(){
         navigation.goBack();
     }
 
+    function handleSendEmail(){
+        setOpenModal(true);
+    }
+
+    function handleModalButton(){
+        setOpenModal(false);
+    }
+
     return (
         <KeyboardAvoidingView behavior="position" enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Container>
+                    <AnimationModal
+                        visible={openModal}
+                        title="Sucesso"
+                        description="O e-mail de troca de senha foi enviado com sucesso!"
+                        onPress={handleModalButton}
+                        transparent
+                    />
+
                     <GoBackButton 
                         onPress={handleGoBack}
                     />
@@ -48,7 +66,7 @@ export function ForgotPassword(){
 
                     <Header
                         title="Crie uma nova senha"
-                        description="Digite o seu endereço de e-mail abaixo. Iremos enviar um e-mail para que você possa mudar a sua senha."
+                        description="Digite o e-mail associado a sua conta. Iremos enviar um e-mail para que você possa mudar a sua senha."
                     />
 
                     <InputWrapper>
@@ -63,8 +81,8 @@ export function ForgotPassword(){
                     </InputWrapper>
 
                     <Button 
-                        title="Criar conta"
-                        onPress={() => console.log("botão de recuperar senha")}
+                        title="Enviar e-mail"
+                        onPress={handleSendEmail}
                     />
                 </Container>
             </TouchableWithoutFeedback>
