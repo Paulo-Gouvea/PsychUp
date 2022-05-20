@@ -13,6 +13,7 @@ import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
 
 import { SignIn } from "./src/screens/SignIn";
+import { SignUp } from "./src/screens/SignUp";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -32,7 +33,7 @@ export default function App() {
         style="dark"
         translucent
       />
-      <SignIn />
+      <SignUp />
     </ThemeProvider>
   );
 }

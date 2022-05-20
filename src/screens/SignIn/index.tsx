@@ -45,6 +45,7 @@ export function SignIn(){
 
             <InputWrapper>
                 <Input 
+                    iconName="mail"
                     placeholder="Digite o seu e-mail"
                     keyboardType="email-address"
                     autoCapitalize="none"
