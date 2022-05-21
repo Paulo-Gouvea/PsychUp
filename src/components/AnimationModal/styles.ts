@@ -29,7 +29,11 @@ export const ModalInformationWrapper = styled.View`
 export const ModalAnimationWrapper = styled.View`
     width: 100%;
     height: 40%;
-    background-color: red;
+
+    padding-top: ${RFValue(35)}px;
+
+    align-items: center;
+    justify-content: center;
 `;
 
 export const ModalTitle = styled.Text`

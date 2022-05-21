@@ -5,7 +5,6 @@ import {
     KeyboardAvoidingView, 
     TouchableWithoutFeedback,
     Keyboard,
-    Alert, 
 } from "react-native";
 
 import {
@@ -23,6 +22,7 @@ import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
 import { Button } from "../../components/Button";
 import { GoBackButton } from "../../components/GoBackButton";
+import { AnimationModal } from "../../components/AnimationModal";
 
 export function SignUp(){
     const [name, setName] = useState("");
@@ -30,6 +30,7 @@ export function SignUp(){
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [isNewAccountCreated, setIsNewAccountCreated] = useState(false);
 
     const navigation = useNavigation();
 
@@ -40,13 +41,7 @@ export function SignUp(){
     function handleCreateAccount(){ 
         console.log(`Nome: ${name}, Email: ${email}, celular: ${phoneNumber}, senha: ${password}, confirmacao: ${confirmPassword}`);
     
-        Alert.alert(
-            "Parabéns! A sua conta foi criada!",
-            "",
-            [
-                {text: "OK", onPress: () => console.log("boa")}
-            ]
-        );
+        setIsNewAccountCreated(true);
     }
 
     return (
@@ -115,6 +110,15 @@ export function SignUp(){
                         title="Criar conta"
                         onPress={handleCreateAccount}
                     />
+
+                    {
+                        isNewAccountCreated && 
+                        <AnimationModal 
+                            title="Sucesso"
+                            description="A sua conta foi criada com sucesso!"
+                            onPress={handleGoBack}
+                        />
+                    }
                 </Container>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

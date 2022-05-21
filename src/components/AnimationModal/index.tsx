@@ -2,6 +2,7 @@ import React from "react";
 import { 
     ModalProps 
 } from "react-native";
+import AnimatedLottieView from "lottie-react-native";
 import {
     Container,
     ModalPosition,
@@ -11,6 +12,8 @@ import {
     ModalTitle,
     ModalDescription,
 } from "./styles";
+
+import successAnimation from "../../assets/SuccessAnimation.json";
 
 import { Button } from "../Button";
 
@@ -33,7 +36,13 @@ export function AnimationModal({
             <ModalPosition>
                 <ModalContent>
                     <ModalAnimationWrapper>
-
+                        <AnimatedLottieView 
+                            source={successAnimation}
+                            style={{ height: 200 }}
+                            resizeMode='contain'
+                            autoPlay
+                            loop
+                        />
                     </ModalAnimationWrapper>
 
                     <ModalInformationWrapper>
