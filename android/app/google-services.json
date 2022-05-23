@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1092759664342",
+    "project_id": "psychup-ee9ee",
+    "storage_bucket": "psychup-ee9ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092759664342:android:2c12fda79d454e00b5bb77",
+        "android_client_info": {
+          "package_name": "com.psychup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092759664342-t2fdj6v6bpr6g3nk8trvc6u4187uc488.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.psychup",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1092759664342-7mro0sgbaafi3991131lh8onvvdib0mf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuXx4fZ0fnjKGaNEnQhKmLM2Czw6NJYwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092759664342-7mro0sgbaafi3991131lh8onvvdib0mf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
