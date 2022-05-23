@@ -28,6 +28,7 @@ import {
 import * as Yup from "yup";
 
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../hooks/auth";
 
 import LogoImg from "../../assets/Logo.svg";
 import GoogleImg from "../../assets/Google.svg";
@@ -45,6 +46,7 @@ export function Login(){
     const [password, setPassword] = useState("");
 
     const navigation = useNavigation();
+    const { signIn } = useAuth();
 
     async function handleLogin(){
         try {
@@ -55,12 +57,12 @@ export function Login(){
 
                 email: Yup.string()
                 .required("e-mail obrigatório")
-                .email(),
+                .email("Digite um e-mail valido"),
             });
 
             await schema.validate({ email, password });
 
-            navigation.navigate("home");
+            signIn(email, password);
         } catch(error){
             if(error instanceof Yup.ValidationError){
                 Alert.alert("Opa!", error.message);

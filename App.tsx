@@ -14,6 +14,8 @@ import theme from "./src/theme";
 
 import { Routes } from "./src/routes";
 
+import { AppProvider } from "./src/hooks";
+
 export default function App() {
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
@@ -32,7 +34,9 @@ export default function App() {
         style="dark"
         translucent
       />
-      <Routes />
+      <AppProvider>
+        <Routes />
+      </AppProvider>
     </ThemeProvider>
   );
 }
