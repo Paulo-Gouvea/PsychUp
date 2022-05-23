@@ -5,6 +5,7 @@ import {
     KeyboardAvoidingView, 
     TouchableWithoutFeedback,
     Keyboard,
+    Alert,
 } from "react-native";
 
 import {
@@ -12,6 +13,8 @@ import {
     Logo,
     InputWrapper,
 } from "./styles";
+
+import * as Yup from "yup";
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -38,10 +41,49 @@ export function SignUp(){
         navigation.goBack();
     }
 
-    function handleCreateAccount(){ 
-        console.log(`Nome: ${name}, Email: ${email}, celular: ${phoneNumber}, senha: ${password}, confirmacao: ${confirmPassword}`);
-    
-        setIsNewAccountCreated(true);
+    async function handleCreateAccount(){ 
+        if(password !== confirmPassword) {
+            Alert.alert(
+                "Opa",
+                "As senhas têm que serem iguais"
+            )
+        }
+
+        try {
+            const schema = Yup.object().shape({
+                confirmPassword: Yup.string()
+                .required("Senha obrigatória")
+                .min(6, "a senha deve conter no mínimo 6 digitos"),
+
+                password: Yup.string()
+                .required("Senha obrigatória")
+                .min(6, "a senha deve conter no mínimo 6 digitos"),
+
+                phoneNumber: Yup.string()
+                .required("número de telefone obrigatório")
+                .min(11, "o número de telefone deve conter 11 digitos"),
+
+                email: Yup.string()
+                .required("e-mail obrigatório")
+                .email(),
+
+                name: Yup.string()
+                .required("Nome obrigatório"),
+            });
+
+            await schema.validate({ name, email, phoneNumber, password, confirmPassword });
+
+            setIsNewAccountCreated(true);
+        } catch(error){
+            if(error instanceof Yup.ValidationError){
+                Alert.alert("Opa!", error.message);
+            } else {
+                Alert.alert(
+                    "Erro na autenticação", 
+                    "Ocorreu um erro ao fazer login, verifique às credenciais"
+                )
+            }
+        }
     }
 
     return (

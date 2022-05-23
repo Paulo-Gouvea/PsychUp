@@ -5,6 +5,7 @@ import {
     KeyboardAvoidingView, 
     TouchableWithoutFeedback,
     Keyboard,
+    Alert,
 } from "react-native";
 
 import {
@@ -12,6 +13,8 @@ import {
     Logo,
     InputWrapper,
 } from "./styles";
+
+import * as Yup from "yup";
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -33,8 +36,27 @@ export function ForgotPassword(){
         navigation.goBack();
     }
 
-    function handleSendEmail(){
-        setOpenModal(true);
+    async function handleSendEmail(){
+        try {
+            const schema = Yup.object().shape({
+                email: Yup.string()
+                .required("e-mail obrigatório")
+                .email("e-mail invalido"),
+            });
+
+            await schema.validate({ email });
+
+            setOpenModal(true);
+        } catch (error) {
+            if(error instanceof Yup.ValidationError){
+                Alert.alert("Opa!", error.message);
+            } else {
+                Alert.alert(
+                    "Erro na autenticação", 
+                    "Ocorreu um erro ao fazer login, verifique às credenciais"
+                )
+            } 
+        }
     }
 
     function handleModalButton(){

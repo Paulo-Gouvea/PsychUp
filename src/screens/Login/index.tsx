@@ -1,9 +1,12 @@
-import React from "react";
+import React, {
+    useState,
+} from "react";
 import { 
     KeyboardAvoidingView, 
     TouchableWithoutFeedback,
     Keyboard,     
-    Platform 
+    Platform,
+    Alert 
 } from "react-native";
 
 import {
@@ -22,6 +25,8 @@ import {
     SignUpButtonTitle,
 } from "./styles";
 
+import * as Yup from "yup";
+
 import { useNavigation } from "@react-navigation/native";
 
 import LogoImg from "../../assets/Logo.svg";
@@ -36,7 +41,37 @@ import { Button } from "../../components/Button";
 import { SocialAccountButton } from "../../components/SocialAccountButton";
 
 export function Login(){
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     const navigation = useNavigation();
+
+    async function handleLogin(){
+        try {
+            const schema = Yup.object().shape({
+                password: Yup.string()
+                .required("Senha obrigatória")
+                .min(6, "a senha deve conter no mínimo 6 digitos"),
+
+                email: Yup.string()
+                .required("e-mail obrigatório")
+                .email(),
+            });
+
+            await schema.validate({ email, password });
+
+            navigation.navigate("home");
+        } catch(error){
+            if(error instanceof Yup.ValidationError){
+                Alert.alert("Opa!", error.message);
+            } else {
+                Alert.alert(
+                    "Erro na autenticação", 
+                    "Ocorreu um erro ao fazer login, verifique às credenciais"
+                )
+            }
+        }
+    }
 
     function handleSignUp(){
         navigation.navigate("signup");
@@ -68,16 +103,20 @@ export function Login(){
                             placeholder="Digite o seu e-mail"
                             keyboardType="email-address"
                             autoCapitalize="none"
+                            value={email}
+                            onChangeText={setEmail}
                         />
 
                         <PasswordInput 
                             placeholder="Digite a sua senha"
+                            value={password}
+                            onChangeText={setPassword}
                         />
                     </InputWrapper>
 
                     <Button 
                         title="Entrar"
-                        onPress={() => console.log("Botão de entrar")}
+                        onPress={handleLogin}
                     />
 
                     <ForgetPasswordWrapper>
