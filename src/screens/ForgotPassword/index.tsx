@@ -17,6 +17,7 @@ import {
 import * as Yup from "yup";
 
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../hooks/auth";
 
 import LogoImg from "../../assets/Logo.svg";
 
@@ -28,9 +29,9 @@ import { AnimationModal } from "../../components/AnimationModal";
 
 export function ForgotPassword(){
     const [email, setEmail] = useState("");
-    const [openModal, setOpenModal] = useState(false);
 
     const navigation = useNavigation();
+    const { forgotPassword, isLoading, openModal, setOpenModal } = useAuth();
 
     function handleGoBack(){
         navigation.goBack();
@@ -46,7 +47,7 @@ export function ForgotPassword(){
 
             await schema.validate({ email });
 
-            setOpenModal(true);
+            forgotPassword(email);
         } catch (error) {
             if(error instanceof Yup.ValidationError){
                 Alert.alert("Opa!", error.message);
@@ -61,6 +62,7 @@ export function ForgotPassword(){
 
     function handleModalButton(){
         setOpenModal(false);
+        handleGoBack();
     }
 
     return (
@@ -104,6 +106,7 @@ export function ForgotPassword(){
 
                     <Button 
                         title="Enviar e-mail"
+                        isLoading={isLoading}
                         onPress={handleSendEmail}
                     />
                 </Container>

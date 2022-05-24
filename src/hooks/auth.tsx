@@ -17,7 +17,10 @@ interface User {
 
 interface AuthContextData {
     signIn: (email: string, password: string) => Promise<void>;
-    isLogging: boolean;
+    forgotPassword: (email: string) => Promise<void>;
+    isLoading: boolean;
+    openModal: boolean;
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     user: User | null;
 }
 
@@ -28,7 +31,8 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps){
-    const [isLogging, setIsLogging] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const [user, setUser] = useState<User | null>(null);
 
     async function signIn(email: string, password: string){
@@ -36,7 +40,7 @@ function AuthProvider({ children }: AuthProviderProps){
             return Alert.alert("Login", "Informe o e-mail e a senha");
         }
 
-        setIsLogging(true);
+        setIsLoading(true);
 
         auth()
         .signInWithEmailAndPassword(email, password)
@@ -73,7 +77,27 @@ function AuthProvider({ children }: AuthProviderProps){
             }
         })
         .finally(() => {
-            setIsLogging(false);
+            setIsLoading(false);
+        });
+    }
+
+    async function forgotPassword(email: string){
+        if(!email){
+            return;
+        }
+
+        setIsLoading(true);
+
+        auth()
+        .sendPasswordResetEmail(email)
+        .then(() => {
+            setOpenModal(true);
+        })
+        .catch(() => {
+            Alert.alert("Redefinir senha", "Não foi possível enviar o e-mail para redefinir a senha");
+        })
+        .finally(() => {
+            setIsLoading(false);
         });
     }
 
@@ -81,7 +105,10 @@ function AuthProvider({ children }: AuthProviderProps){
         <AuthContext.Provider
             value={{
                 signIn,
-                isLogging,
+                forgotPassword,
+                isLoading,
+                openModal,
+                setOpenModal,
                 user,
             }}
         >
