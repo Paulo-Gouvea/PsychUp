@@ -2,10 +2,15 @@ import { TouchableOpacity } from "react-native";
 import styled, { css } from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Container = styled(TouchableOpacity)`
+interface ButtonStyleprops {
+    isLoading?: boolean;
+}
+
+export const Container = styled(TouchableOpacity)<ButtonStyleprops>`
     width: 100%;
     height: ${RFValue(52)}px;
-    background-color: ${({ theme }) => theme.COLORS.TEAL_900};
+    background-color: ${({ theme, isLoading }) => isLoading ?
+    theme.COLORS.TEAL_500 : theme.COLORS.TEAL_900};
 
     align-items: center;
     justify-content: center;

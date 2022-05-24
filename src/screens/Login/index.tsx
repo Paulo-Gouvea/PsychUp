@@ -46,7 +46,7 @@ export function Login(){
     const [password, setPassword] = useState("");
 
     const navigation = useNavigation();
-    const { signIn } = useAuth();
+    const { signIn, isLogging } = useAuth();
 
     async function handleLogin(){
         try {
@@ -119,6 +119,8 @@ export function Login(){
                     <Button 
                         title="Entrar"
                         onPress={handleLogin}
+                        disabled={isLogging}
+                        isLoading={isLogging}
                     />
 
                     <ForgetPasswordWrapper>

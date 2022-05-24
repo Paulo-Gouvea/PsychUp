@@ -1,5 +1,6 @@
 export default {
     COLORS: {
+        TEAL_500: "#00B3B3",
         TEAL_700: "#38909B",
         TEAL_900: "#107986",
 
