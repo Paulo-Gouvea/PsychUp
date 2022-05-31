@@ -13,7 +13,7 @@ export const ModalPosition = styled.View`
 
 export const ModalContent = styled.View`
     width: ${RFValue(280)}px;
-    height: ${RFValue(400)}px;
+    height: ${RFValue(430)}px;
 
     border-radius: 6px;
     background-color: ${({ theme }) => theme.COLORS.WHITE_900};
@@ -37,6 +37,7 @@ export const ModalAnimationWrapper = styled.View`
 `;
 
 export const ModalTitle = styled.Text`
+    text-align: center;
     font-size: ${RFValue(25)}px;
 
     margin: ${RFValue(22)}px 0;

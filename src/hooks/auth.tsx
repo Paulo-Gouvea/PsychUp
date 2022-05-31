@@ -21,6 +21,10 @@ interface AuthContextData {
     isLoading: boolean;
     openModal: boolean;
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+    errorMessageTitle: string;
+    setErrorMessageTitle: React.Dispatch<React.SetStateAction<string>>;
+    errorMessageDescription: string;
+    setErrorMessageDescription: React.Dispatch<React.SetStateAction<string>>;
     user: User | null;
 }
 
@@ -33,6 +37,8 @@ export const AuthContext = createContext({} as AuthContextData);
 function AuthProvider({ children }: AuthProviderProps){
     const [isLoading, setIsLoading] = useState(false);
     const [openModal, setOpenModal] = useState(false);
+    const [errorMessageTitle, setErrorMessageTitle] = useState("");
+    const [errorMessageDescription, setErrorMessageDescription] = useState("");
     const [user, setUser] = useState<User | null>(null);
 
     async function signIn(email: string, password: string){
@@ -93,8 +99,17 @@ function AuthProvider({ children }: AuthProviderProps){
         .then(() => {
             setOpenModal(true);
         })
-        .catch(() => {
-            Alert.alert("Redefinir senha", "Não foi possível enviar o e-mail para redefinir a senha");
+        .catch((error) => {
+            const { code } = error;
+            if(code === "auth/user-not-found"){
+                setErrorMessageTitle("Erro para encontrar o usuário");
+                setErrorMessageDescription("O e-mail digitado não foi encontrado em nosso sistema");
+                setOpenModal(true);
+            } else {
+                setErrorMessageTitle("Erro de redefinição de senha");
+                setErrorMessageDescription("Não foi possível enviar o e-mail para redefinir a senha");
+                setOpenModal(true);
+            }
         })
         .finally(() => {
             setIsLoading(false);
@@ -109,6 +124,10 @@ function AuthProvider({ children }: AuthProviderProps){
                 isLoading,
                 openModal,
                 setOpenModal,
+                errorMessageTitle,
+                setErrorMessageTitle,
+                errorMessageDescription,
+                setErrorMessageDescription,
                 user,
             }}
         >

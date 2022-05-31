@@ -2,7 +2,7 @@ import React from "react";
 import { 
     ModalProps 
 } from "react-native";
-import AnimatedLottieView from "lottie-react-native";
+import AnimatedLottieView, { AnimationObject } from "lottie-react-native";
 import {
     Container,
     ModalPosition,
@@ -13,17 +13,17 @@ import {
     ModalDescription,
 } from "./styles";
 
-import successAnimation from "../../assets/SuccessAnimation.json";
-
 import { Button } from "../Button";
 
 interface AppModalProps extends ModalProps {
+    animationSource: string | AnimationObject | { uri: string; };
     title: string;
     description: string;
     onPress: () => void;
 }
 
 export function AnimationModal({
+    animationSource,
     title,
     description,
     onPress,
@@ -37,7 +37,7 @@ export function AnimationModal({
                 <ModalContent>
                     <ModalAnimationWrapper>
                         <AnimatedLottieView 
-                            source={successAnimation}
+                            source={animationSource}
                             style={{ height: 200 }}
                             resizeMode='contain'
                             autoPlay

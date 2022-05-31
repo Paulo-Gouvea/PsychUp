@@ -18,6 +18,7 @@ import * as Yup from "yup";
 
 import { useNavigation } from "@react-navigation/native";
 
+import successAnimation from "../../assets/SuccessAnimation.json";
 import LogoImg from "../../assets/Logo.svg";
 
 import { Header } from "../../components/Header";
@@ -156,6 +157,7 @@ export function SignUp(){
                     {
                         isNewAccountCreated && 
                         <AnimationModal 
+                            animationSource={successAnimation}
                             title="Sucesso"
                             description="A sua conta foi criada com sucesso!"
                             onPress={handleGoBack}

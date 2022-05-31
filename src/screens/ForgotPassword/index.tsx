@@ -5,7 +5,6 @@ import {
     KeyboardAvoidingView, 
     TouchableWithoutFeedback,
     Keyboard,
-    Alert,
 } from "react-native";
 
 import {
@@ -19,6 +18,8 @@ import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../hooks/auth";
 
+import successAnimation from "../../assets/SuccessAnimation.json";
+import errorAnimation from "../../assets/ErrorAnimation.json";
 import LogoImg from "../../assets/Logo.svg";
 
 import { Header } from "../../components/Header";
@@ -31,7 +32,16 @@ export function ForgotPassword(){
     const [email, setEmail] = useState("");
 
     const navigation = useNavigation();
-    const { forgotPassword, isLoading, openModal, setOpenModal } = useAuth();
+    const { 
+        forgotPassword, 
+        isLoading, 
+        openModal, 
+        setOpenModal,
+        errorMessageTitle,
+        setErrorMessageTitle,
+        errorMessageDescription,
+        setErrorMessageDescription,
+    } = useAuth();
 
     function handleGoBack(){
         navigation.goBack();
@@ -41,8 +51,8 @@ export function ForgotPassword(){
         try {
             const schema = Yup.object().shape({
                 email: Yup.string()
-                .required("e-mail obrigatório")
-                .email("e-mail invalido"),
+                .required("O e-mail é obrigatório")
+                .email("O e-mail digitado está no formato invalido"),
             });
 
             await schema.validate({ email });
@@ -50,19 +60,26 @@ export function ForgotPassword(){
             forgotPassword(email);
         } catch (error) {
             if(error instanceof Yup.ValidationError){
-                Alert.alert("Opa!", error.message);
+                setErrorMessageTitle("Erro de validação");
+                setErrorMessageDescription(error.message);
+                setOpenModal(true);
             } else {
-                Alert.alert(
-                    "Erro na autenticação", 
-                    "Ocorreu um erro ao fazer login, verifique às credenciais"
-                )
+                setErrorMessageTitle("Erro de validação");
+                setErrorMessageDescription("Ocorreu um erro ao fazer login, verifique às credenciais");
+                setOpenModal(true);
             } 
         }
     }
 
-    function handleModalButton(){
+    function handleSuccessModalButton(){
         setOpenModal(false);
         handleGoBack();
+    }
+
+    function handleErrorModalButton(){
+        setOpenModal(false);
+        setErrorMessageTitle("");
+        setErrorMessageDescription("");
     }
 
     return (
@@ -70,10 +87,11 @@ export function ForgotPassword(){
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Container>
                     <AnimationModal
+                        animationSource={ errorMessageTitle ? errorAnimation : successAnimation}
                         visible={openModal}
-                        title="Sucesso"
-                        description="O e-mail de troca de senha foi enviado com sucesso!"
-                        onPress={handleModalButton}
+                        title={ errorMessageTitle ? errorMessageTitle : "Sucesso" }
+                        description={ errorMessageDescription ? errorMessageDescription : "O e-mail de troca de senha foi enviado com sucesso!" }
+                        onPress={ errorMessageTitle ? handleErrorModalButton : handleSuccessModalButton }
                         transparent
                     />
 
