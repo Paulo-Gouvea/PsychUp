@@ -4,7 +4,6 @@ import React, {
     useContext,
     useState
 } from "react";
-import { Alert } from "react-native";
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 
@@ -43,7 +42,7 @@ function AuthProvider({ children }: AuthProviderProps){
 
     async function signIn(email: string, password: string){
         if(!email || !password){
-            return Alert.alert("Login", "Informe o e-mail e a senha");
+            return;
         }
 
         setIsLoading(true);
@@ -68,18 +67,23 @@ function AuthProvider({ children }: AuthProviderProps){
                     setUser(userData);
                 }
             })
-            .catch((error) => {
-                Alert.alert("Login", "Não foi possivel buscar os dados de perfil do usuário.");
-                console.log(error);
+            .catch(() => {
+                setErrorMessageTitle("Erro ao realizar o login");
+                setErrorMessageDescription("Não foi possivel buscar os dados de perfil do usuário");
+                setOpenModal(true);
             })
         })
         .catch(error => {
             const { code } = error;
 
             if(code === "auth/user-not-found" || code === "auth/wrong-password") {
-                return Alert.alert("Login", "E-mail e/ou senha inválida.");
+                setErrorMessageTitle("Erro de login");
+                setErrorMessageDescription("Verifique se o e-mail e a senha estão corretos.");
+                setOpenModal(true);
             } else {
-                return Alert.alert("Login", "Não foi possível realizar o login.");
+                setErrorMessageTitle("Erro de login");
+                setErrorMessageDescription("No momento não foi possível realizar o login.");
+                setOpenModal(true);
             }
         })
         .finally(() => {

@@ -6,7 +6,6 @@ import {
     TouchableWithoutFeedback,
     Keyboard,     
     Platform,
-    Alert 
 } from "react-native";
 
 import {
@@ -30,11 +29,13 @@ import * as Yup from "yup";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../hooks/auth";
 
+import errorAnimation from "../../assets/ErrorAnimation.json";
 import LogoImg from "../../assets/Logo.svg";
 import GoogleImg from "../../assets/Google.svg";
 import AppleImg from "../../assets/Apple.svg";
 import FacebookImg from "../../assets/Facebook.svg";
 
+import { AnimationModal } from "../../components/AnimationModal";
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
@@ -46,7 +47,16 @@ export function Login(){
     const [password, setPassword] = useState("");
 
     const navigation = useNavigation();
-    const { signIn, isLoading } = useAuth();
+    const { 
+        signIn, 
+        isLoading,
+        openModal, 
+        setOpenModal,
+        errorMessageTitle,
+        setErrorMessageTitle,
+        errorMessageDescription,
+        setErrorMessageDescription,
+    } = useAuth();
 
     async function handleLogin(){
         try {
@@ -65,14 +75,21 @@ export function Login(){
             signIn(email, password);
         } catch(error){
             if(error instanceof Yup.ValidationError){
-                Alert.alert("Opa!", error.message);
+                setErrorMessageTitle("Erro de validação");
+                setErrorMessageDescription(error.message);
+                setOpenModal(true);
             } else {
-                Alert.alert(
-                    "Erro na autenticação", 
-                    "Ocorreu um erro ao fazer login, verifique às credenciais"
-                )
+                setErrorMessageTitle("Erro na autenticação");
+                setErrorMessageDescription("Ocorreu um erro ao fazer login, verifique às credenciais.");
+                setOpenModal(true);
             }
         }
+    }
+
+    function handleModalButton(){
+        setOpenModal(false);
+        setErrorMessageTitle("");
+        setErrorMessageDescription("");
     }
 
     function handleSignUp(){
@@ -87,6 +104,15 @@ export function Login(){
         <KeyboardAvoidingView behavior="position" enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Container>
+                    <AnimationModal 
+                        animationSource={ errorAnimation }
+                        visible={openModal}
+                        title={ errorMessageTitle }
+                        description={ errorMessageDescription }
+                        onPress={ handleModalButton }
+                        transparent
+                    />
+
                     <Logo>
                         <LogoImg 
                             width={90}
