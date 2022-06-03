@@ -5,7 +5,6 @@ import {
     KeyboardAvoidingView, 
     TouchableWithoutFeedback,
     Keyboard,
-    Alert,
 } from "react-native";
 
 import {
@@ -17,7 +16,9 @@ import {
 import * as Yup from "yup";
 
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../hooks/auth";
 
+import errorAnimation from "../../assets/ErrorAnimation.json";
 import successAnimation from "../../assets/SuccessAnimation.json";
 import LogoImg from "../../assets/Logo.svg";
 
@@ -34,26 +35,44 @@ export function SignUp(){
     const [phoneNumber, setPhoneNumber] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [isNewAccountCreated, setIsNewAccountCreated] = useState(false);
 
     const navigation = useNavigation();
+    const {  
+        isLoading, 
+        openModal, 
+        setOpenModal,
+        errorMessageTitle,
+        setErrorMessageTitle,
+        errorMessageDescription,
+        setErrorMessageDescription,
+    } = useAuth();
 
     function handleGoBack(){
         navigation.goBack();
     }
 
+    function handleSuccessModalButton(){
+        setOpenModal(false);
+        handleGoBack();
+    }
+
+    function handleErrorModalButton(){
+        setOpenModal(false);
+        setErrorMessageTitle("");
+        setErrorMessageDescription("");
+    }
+
     async function handleCreateAccount(){ 
         if(password !== confirmPassword) {
-            Alert.alert(
-                "Opa",
-                "As senhas têm que serem iguais"
-            )
+            setErrorMessageTitle("Erro na criação de senha");
+            setErrorMessageDescription("As senhas têm que serem iguais");
+            setOpenModal(true);
         }
 
         try {
             const schema = Yup.object().shape({
                 confirmPassword: Yup.string()
-                .required("Senha obrigatória")
+                .required("Confirme a sua senha")
                 .min(6, "a senha deve conter no mínimo 6 digitos"),
 
                 password: Yup.string()
@@ -66,7 +85,7 @@ export function SignUp(){
 
                 email: Yup.string()
                 .required("e-mail obrigatório")
-                .email(),
+                .email("O e-mail digitado está no formato invalido"),
 
                 name: Yup.string()
                 .required("Nome obrigatório"),
@@ -74,15 +93,16 @@ export function SignUp(){
 
             await schema.validate({ name, email, phoneNumber, password, confirmPassword });
 
-            setIsNewAccountCreated(true);
+            setOpenModal(true);
         } catch(error){
             if(error instanceof Yup.ValidationError){
-                Alert.alert("Opa!", error.message);
+                setErrorMessageTitle("Erro de validação");
+                setErrorMessageDescription(error.message);
+                setOpenModal(true);
             } else {
-                Alert.alert(
-                    "Erro na autenticação", 
-                    "Ocorreu um erro ao fazer login, verifique às credenciais"
-                )
+                setErrorMessageTitle("Erro na autenticação");
+                setErrorMessageDescription("Ocorreu um erro ao fazer login, verifique às credenciais");
+                setOpenModal(true);
             }
         }
     }
@@ -91,6 +111,15 @@ export function SignUp(){
         <KeyboardAvoidingView behavior="position" enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <Container>
+                    <AnimationModal 
+                        animationSource={errorMessageTitle ? errorAnimation : successAnimation}
+                        visible={openModal}
+                        title={ errorMessageTitle ? errorMessageTitle : "Sucesso" }
+                        description={ errorMessageDescription ? errorMessageDescription : "A sua conta foi criada com sucesso!" }
+                        onPress={ errorMessageTitle ? handleErrorModalButton : handleSuccessModalButton }
+                        transparent
+                    />
+
                     <GoBackButton 
                         onPress={handleGoBack}
                     />
@@ -152,17 +181,8 @@ export function SignUp(){
                     <Button 
                         title="Criar conta"
                         onPress={handleCreateAccount}
+                        isLoading={isLoading}
                     />
-
-                    {
-                        isNewAccountCreated && 
-                        <AnimationModal 
-                            animationSource={successAnimation}
-                            title="Sucesso"
-                            description="A sua conta foi criada com sucesso!"
-                            onPress={handleGoBack}
-                        />
-                    }
                 </Container>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
