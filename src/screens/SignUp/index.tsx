@@ -38,6 +38,7 @@ export function SignUp(){
 
     const navigation = useNavigation();
     const {  
+        createUser,
         isLoading, 
         openModal, 
         setOpenModal,
@@ -93,6 +94,8 @@ export function SignUp(){
 
             await schema.validate({ name, email, phoneNumber, password, confirmPassword });
 
+            await createUser(email, password, name, phoneNumber);
+            
             setOpenModal(true);
         } catch(error){
             if(error instanceof Yup.ValidationError){

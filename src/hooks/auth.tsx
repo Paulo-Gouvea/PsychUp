@@ -8,7 +8,7 @@ import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 
 interface User {
-    id: string;
+    id?: string;
     name: string;
     email: string;
     phoneNumber: string;
@@ -16,6 +16,7 @@ interface User {
 
 interface AuthContextData {
     signIn: (email: string, password: string) => Promise<void>;
+    createUser: (email: string, password: string, name: string, phoneNumber: string) => void;
     forgotPassword: (email: string) => Promise<void>;
     isLoading: boolean;
     openModal: boolean;
@@ -91,6 +92,34 @@ function AuthProvider({ children }: AuthProviderProps){
         });
     }
 
+    async function createUser(email: string, password: string, name: string, phoneNumber: string) {
+        await auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then( account  => {
+            firestore()
+            .collection("users")
+            .doc(account.user.uid)
+            .set({
+                name,
+                email,
+                phoneNumber
+            })
+            .catch( () => {
+                setErrorMessageTitle("Erro na criação da conta");
+                setErrorMessageDescription("Erro ao adicionar o usuario no nosso sistema no momento.");
+                setOpenModal(true);
+            })
+        })
+        .catch(error => {
+            if(error.code === 'auth/email-already-in-use'){
+                setErrorMessageTitle("Erro na criação da conta");
+                setErrorMessageDescription("O e-mail digitado já está em uso.");
+                setOpenModal(true);
+                return;
+            }
+        })
+    }
+
     async function forgotPassword(email: string){
         if(!email){
             return;
@@ -124,6 +153,7 @@ function AuthProvider({ children }: AuthProviderProps){
         <AuthContext.Provider
             value={{
                 signIn,
+                createUser,
                 forgotPassword,
                 isLoading,
                 openModal,
