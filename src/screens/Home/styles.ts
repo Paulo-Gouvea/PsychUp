@@ -28,7 +28,7 @@ export const UserName = styled.Text`
     font-size: ${RFValue(20)}px;
 
     ${({ theme }) => css`
-        font-family: ${theme.FONTS.BOLD};
+        font-family: ${theme.FONTS.ROBOTO_BOLD};
         color: ${theme.COLORS.BLACK_700};
     `};
 `;
@@ -37,7 +37,11 @@ export const UserEmail = styled.Text`
     font-size: ${RFValue(12)}px;
 
     ${({ theme }) => css`
-        font-family: ${theme.FONTS.REGULAR};
+        font-family: ${theme.FONTS.ROBOTO_REGULAR};
         color: ${theme.COLORS.BLACK_700};
     `};
+`;
+
+export const SearchInputContainer = styled.View`
+    margin-top: ${RFValue(60)}px;
 `;

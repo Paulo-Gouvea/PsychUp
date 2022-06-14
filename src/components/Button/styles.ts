@@ -22,7 +22,7 @@ export const Title = styled.Text`
     font-size: ${RFValue(15)}px;
 
     ${({ theme }) => css`
-        font-family: ${theme.FONTS.MEDIUM};
+        font-family: ${theme.FONTS.ROBOTO_MEDIUM};
         color: ${theme.COLORS.WHITE_900};
     `};
 `;

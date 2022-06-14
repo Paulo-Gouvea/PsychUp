@@ -43,7 +43,7 @@ export const ModalTitle = styled.Text`
     margin: ${RFValue(22)}px 0;
 
     ${({ theme }) => css`
-        font-family: ${theme.FONTS.MEDIUM};
+        font-family: ${theme.FONTS.ROBOTO_MEDIUM};
         color: ${theme.COLORS.BLACK_700};
     `};
 `;
@@ -55,7 +55,7 @@ export const ModalDescription = styled.Text`
     margin-bottom: ${RFValue(42)}px;
 
     ${({ theme }) => css`
-        font-family: ${theme.FONTS.REGULAR};
+        font-family: ${theme.FONTS.ROBOTO_REGULAR};
         color: ${theme.COLORS.BLACK_700};
     `};
 `;

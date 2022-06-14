@@ -8,6 +8,10 @@ import {
   Roboto_500Medium,
   Roboto_700Bold
 } from "@expo-google-fonts/roboto";
+import {
+  SourceSerifPro_400Regular,
+  SourceSerifPro_600SemiBold
+} from "@expo-google-fonts/source-serif-pro";
 
 import { ThemeProvider } from "styled-components/native";
 import theme from "./src/theme";
@@ -20,7 +24,9 @@ export default function App() {
   let [fontsLoaded] = useFonts({
     Roboto_400Regular,
     Roboto_500Medium,
-    Roboto_700Bold
+    Roboto_700Bold,
+    SourceSerifPro_400Regular,
+    SourceSerifPro_600SemiBold
   });
 
   if(!fontsLoaded) {

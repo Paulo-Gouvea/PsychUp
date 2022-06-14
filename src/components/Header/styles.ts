@@ -8,7 +8,7 @@ export const Title = styled.Text`
     margin-bottom: ${RFValue(6)}px;
 
     ${({ theme }) => css`
-        font-family: ${theme.FONTS.BOLD};
+        font-family: ${theme.FONTS.ROBOTO_BOLD};
         color: ${theme.COLORS.BLACK_700};
     `};
 `;
@@ -17,7 +17,7 @@ export const Description = styled.Text`
     font-size: ${RFValue(16)}px;
 
     ${({ theme }) => css`
-        font-family: ${theme.FONTS.REGULAR};
+        font-family: ${theme.FONTS.ROBOTO_REGULAR};
         color: ${theme.COLORS.GREY_900};
     `};
 `;

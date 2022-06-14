@@ -3,7 +3,7 @@ import {
     KeyboardAvoidingView, 
     TouchableWithoutFeedback,
     Keyboard,     
-    Platform,
+    ScrollView,
 } from "react-native";
 import { 
     Container,
@@ -12,9 +12,13 @@ import {
     UserInfo,
     UserName,
     UserEmail,
+    SearchInputContainer,
 } from "./styles";
 
 import { useAuth } from "../../hooks/auth";
+
+import { SearchInput } from "../../components/SearchInput";
+import { DoctorSlider } from "../../components/DoctorSlider";
 
 export function Home(){
     const { user } = useAuth();
@@ -22,18 +26,36 @@ export function Home(){
     return (
         <KeyboardAvoidingView behavior="position" enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <Container>
-                    <UserWrapper>
-                        <UserPhoto>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                >
+                    <Container>
+                        <UserWrapper>
+                            <UserPhoto>
 
-                        </UserPhoto>
+                            </UserPhoto>
 
-                        <UserInfo>
-                            <UserName>{user.name}</UserName>
-                            <UserEmail>{user.email}</UserEmail>
-                        </UserInfo>
-                    </UserWrapper>
-                </Container>
+                            <UserInfo>
+                                <UserName>{user.name}</UserName>
+                                <UserEmail>{user.email}</UserEmail>
+                            </UserInfo>
+                        </UserWrapper>
+
+                        <SearchInputContainer>
+                            <SearchInput 
+                                placeholder="Procure aqui o seu médico"
+                            />
+                        </SearchInputContainer>
+
+                        <DoctorSlider 
+                            title="Mais Procurados"
+                        />
+
+                        <DoctorSlider 
+                            title="Em Destaque"
+                        />
+                    </Container>
+                </ScrollView>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     )
