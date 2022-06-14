@@ -18,6 +18,7 @@ interface AuthContextData {
     signIn: (email: string, password: string) => Promise<void>;
     createUser: (email: string, password: string, name: string, phoneNumber: string) => void;
     forgotPassword: (email: string) => Promise<void>;
+    signOut: () => Promise<void>;
     isLoading: boolean;
     openModal: boolean;
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,7 +40,7 @@ function AuthProvider({ children }: AuthProviderProps){
     const [openModal, setOpenModal] = useState(false);
     const [errorMessageTitle, setErrorMessageTitle] = useState("");
     const [errorMessageDescription, setErrorMessageDescription] = useState("");
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User>({} as User);
 
     async function signIn(email: string, password: string){
         if(!email || !password){
@@ -149,12 +150,25 @@ function AuthProvider({ children }: AuthProviderProps){
         });
     }
 
+    async function signOut(){
+        await auth()
+        .signOut()
+        .then(() => {
+            setUser({} as User);
+        }    
+        )
+        .catch((e) => {
+            console.log(e)   
+        });
+    }
+
     return (
         <AuthContext.Provider
             value={{
                 signIn,
                 createUser,
                 forgotPassword,
+                signOut,
                 isLoading,
                 openModal,
                 setOpenModal,

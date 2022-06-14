@@ -17,7 +17,11 @@ import { useAuth } from "../../hooks/auth";
 import { ProfileOption } from "../../components/ProfileOption";
 
 export function Profile(){
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
+
+    function handleSignOut(){
+        signOut();
+    }
 
     return (
         <Container>
@@ -52,6 +56,7 @@ export function Profile(){
             <LogoutWrapper>
                 <ProfileOption 
                     title="Sair de sua conta"
+                    onPress={handleSignOut}
                 />
             </LogoutWrapper>
         </Container>
