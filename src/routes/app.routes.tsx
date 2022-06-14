@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const { Navigator, Screen } = createBottomTabNavigator();
 
 import { Home } from "../screens/Home";
+import { Profile } from "../screens/Profile";
 
 export function AppRoutes(){
     const theme = useTheme();
@@ -56,7 +57,7 @@ export function AppRoutes(){
 
             <Screen 
                 name="profile"
-                component={Home}
+                component={Profile}
                 options={{
                     tabBarIcon: (({}) => (
                         <FontAwesome
