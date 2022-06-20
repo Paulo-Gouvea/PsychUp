@@ -26,12 +26,12 @@ export function Profile(){
             "Você deseja mesmo sair de sua conta?",
             [
                 {
-                    text: "Sim",
-                    onPress: () => signOut(),
-                },
-                {
                     text: "Não",
                     onPress: () => { return; }
+                },
+                {
+                    text: "Sim",
+                    onPress: () => signOut(),
                 }
             ]
         );
@@ -46,7 +46,9 @@ export function Profile(){
             </Header>
 
             <UserInfo>
-                <UserPhoto />
+                <UserPhoto 
+                    source={{ uri: "https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png" }}
+                />
                 
                 <UserName>{user.name}</UserName>
 

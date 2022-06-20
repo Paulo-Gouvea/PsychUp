@@ -36,7 +36,7 @@ export const UserInfo = styled.View`
     margin-top: ${RFValue(20)}px;
 `;
 
-export const UserPhoto = styled.View`
+export const UserPhoto = styled.Image`
     width: ${RFValue(80)}px;
     height: ${RFValue(80)}px;
 

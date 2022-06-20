@@ -31,9 +31,9 @@ export function Home(){
                 >
                     <Container>
                         <UserWrapper>
-                            <UserPhoto>
-
-                            </UserPhoto>
+                            <UserPhoto
+                                source={{ uri: "https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png" }}
+                            />
 
                             <UserInfo>
                                 <UserName>{user.name}</UserName>

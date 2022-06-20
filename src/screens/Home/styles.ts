@@ -11,7 +11,7 @@ export const UserWrapper = styled.View`
     align-items: center;
 `;
 
-export const UserPhoto = styled.View`
+export const UserPhoto = styled.Image`
     width: ${RFValue(55)}px;
     height: ${RFValue(55)}px;
     border-radius: 8px;
