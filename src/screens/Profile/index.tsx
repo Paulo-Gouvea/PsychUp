@@ -1,4 +1,5 @@
 import React from "react";
+import { Alert } from "react-native";
 import {
     Container,
     Header,
@@ -20,7 +21,20 @@ export function Profile(){
     const { user, signOut } = useAuth();
 
     function handleSignOut(){
-        signOut();
+        Alert.alert(
+            "Saindo do aplicativo",
+            "Você deseja mesmo sair de sua conta?",
+            [
+                {
+                    text: "Sim",
+                    onPress: () => signOut(),
+                },
+                {
+                    text: "Não",
+                    onPress: () => { return; }
+                }
+            ]
+        );
     }
 
     return (
