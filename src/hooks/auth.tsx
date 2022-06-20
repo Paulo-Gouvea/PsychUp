@@ -2,10 +2,13 @@ import React, {
     createContext, 
     ReactNode,
     useContext,
-    useState
+    useState,
+    useEffect
 } from "react";
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface User {
     id?: string;
@@ -42,6 +45,8 @@ function AuthProvider({ children }: AuthProviderProps){
     const [errorMessageDescription, setErrorMessageDescription] = useState("");
     const [user, setUser] = useState<User>({} as User);
 
+    const asyncStorageKey = "@psychup_Key";
+
     async function signIn(email: string, password: string){
         if(!email || !password){
             return;
@@ -66,6 +71,10 @@ function AuthProvider({ children }: AuthProviderProps){
                         email,
                         phoneNumber 
                     };
+
+                    const userDataJsonValue = JSON.stringify(userData);
+                    await AsyncStorage.setItem(asyncStorageKey, userDataJsonValue);
+
                     setUser(userData);
                 }
             })
@@ -153,7 +162,8 @@ function AuthProvider({ children }: AuthProviderProps){
     async function signOut(){
         await auth()
         .signOut()
-        .then(() => {
+        .then(async() => {
+            await AsyncStorage.removeItem(asyncStorageKey);
             setUser({} as User);
         }    
         )
@@ -161,6 +171,19 @@ function AuthProvider({ children }: AuthProviderProps){
             console.log(e)   
         });
     }
+
+    useEffect(() => {
+        async function findAnUser(){
+            const value = await AsyncStorage.getItem(asyncStorageKey);
+
+            if(value !== null) {
+                const formattedValue = JSON.parse(value);
+                setUser(formattedValue);
+            } 
+        }
+
+        findAnUser();
+    }, []);
 
     return (
         <AuthContext.Provider
