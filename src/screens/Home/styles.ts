@@ -15,14 +15,11 @@ export const UserPhoto = styled.Image`
     width: ${RFValue(55)}px;
     height: ${RFValue(55)}px;
     border-radius: 8px;
-    background-color: red;
     
     margin-right: 12px;
 `;
 
-export const UserInfo = styled.View`
-
-`;
+export const UserInfo = styled.View``;
 
 export const UserName = styled.Text`
     font-size: ${RFValue(20)}px;

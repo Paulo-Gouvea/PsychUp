@@ -7,10 +7,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
+import { AppStackRoutes } from "./app.stack.routes";
 import { Home } from "../screens/Home";
 import { Profile } from "../screens/Profile";
 
-export function AppRoutes(){
+export function AppTabRoutes(){
     const theme = useTheme();
 
     return(
@@ -28,8 +29,8 @@ export function AppRoutes(){
             }}
         >
             <Screen 
-                name="home"
-                component={Home}
+                name="appstackroutes"
+                component={AppStackRoutes}
                 options={{
                     tabBarIcon: (({}) => (
                         <Entypo

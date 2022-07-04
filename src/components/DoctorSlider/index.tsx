@@ -16,6 +16,7 @@ import {
 } from "./styles";
 
 import { useTheme } from "styled-components/native";
+import { useNavigation } from "@react-navigation/native";
 
 interface DoctorSliderProps extends TouchableOpacityProps{
     title: string;
@@ -28,6 +29,11 @@ export function DoctorSlider({
     ...rest
 }: DoctorSliderProps){
     const theme = useTheme();
+    const navigation = useNavigation();
+
+    function handleDoctorDetailsScreen(){
+        navigation.navigate("doctordetails")
+    }
 
     return (
         <Container>
@@ -52,6 +58,7 @@ export function DoctorSlider({
                 data={list}
                 renderItem={({item}) => (
                     <DoctorCard
+                        onPress={handleDoctorDetailsScreen}
                         {...rest}
                     >
                         <DoctorCardImage 
