@@ -44,8 +44,7 @@ export const TestWrapper = styled.View`
     flex-direction: row;
 `;
 
-export const Test = styled.View`
-    background-color: red;
+export const DoctorCard = styled(TouchableOpacity)`
     width: ${RFValue(160)}px;
     height: ${RFValue(220)}px;
 
@@ -53,3 +52,39 @@ export const Test = styled.View`
 
     margin-right: 16px;
 `;
+
+export const DoctorCardImage = styled.Image`
+    width: ${RFValue(160)}px;
+    height: 65%;
+
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+`;
+
+export const DoctorCardInfo = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: ${({ theme }) => theme.COLORS.WHITE_900};
+
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+`
+
+export const DoctorName = styled.Text`
+    font-size: ${RFValue(16)}px;
+
+    ${({ theme }) => css`
+        font-family: ${theme.FONTS.SOURCE_SERIF_PRO_SEMI_BOLD};
+        color: ${theme.COLORS.BLACK_900};
+    `};
+`
+
+export const DoctorSpecialization = styled.Text`
+    font-size: ${RFValue(12)}px;
+
+    ${({ theme }) => css`
+        font-family: ${theme.FONTS.SOURCE_SERIF_PRO_REGULAR};
+        color: ${theme.COLORS.GREY_900};
+    `};
+`

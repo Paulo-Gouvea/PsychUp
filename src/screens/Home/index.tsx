@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { 
     KeyboardAvoidingView, 
     TouchableWithoutFeedback,
     Keyboard,     
     ScrollView,
+    ActivityIndicator,
 } from "react-native";
 import { 
     Container,
@@ -15,48 +16,79 @@ import {
     SearchInputContainer,
 } from "./styles";
 
+import firestore from "@react-native-firebase/firestore";
+
 import { useAuth } from "../../hooks/auth";
 
 import { SearchInput } from "../../components/SearchInput";
 import { DoctorSlider } from "../../components/DoctorSlider";
 
 export function Home(){
+    const [loading, setLoading] = useState(true);
+    const [doctors, setDoctors] = useState([]);
+
     const { user } = useAuth();
 
-    return (
-        <KeyboardAvoidingView behavior="position" enabled>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                >
-                    <Container>
-                        <UserWrapper>
-                            <UserPhoto
-                                source={{ uri: "https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png" }}
+    useEffect(() => {
+        const subscriber = firestore()
+            .collection('doctors')
+            .onSnapshot(querySnapshot => {
+                const doctors = [];
+
+                querySnapshot.forEach(documentSnapshot => {
+                    doctors.push({
+                        ...documentSnapshot.data(),
+                        key: documentSnapshot.id,
+                    });
+                });
+
+                setDoctors(doctors);
+                setLoading(false);
+            })
+
+            return () => subscriber();
+    }, []);
+
+    if (loading) {
+        return <ActivityIndicator />;
+    } else {
+        return (
+            <KeyboardAvoidingView behavior="position" enabled>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <Container>
+                            <UserWrapper>
+                                <UserPhoto
+                                    source={{ uri: "https://www.nicepng.com/png/detail/137-1379898_anonymous-headshot-icon-user-png.png" }}
+                                />
+
+                                <UserInfo>
+                                    <UserName>{user.name}</UserName>
+                                    <UserEmail>{user.email}</UserEmail>
+                                </UserInfo>
+                            </UserWrapper>
+
+                            <SearchInputContainer>
+                                <SearchInput 
+                                    placeholder="Procure aqui o seu médico"
+                                />
+                            </SearchInputContainer>
+
+                            <DoctorSlider 
+                                title="Mais Procurados"
+                                list={doctors}
                             />
 
-                            <UserInfo>
-                                <UserName>{user.name}</UserName>
-                                <UserEmail>{user.email}</UserEmail>
-                            </UserInfo>
-                        </UserWrapper>
-
-                        <SearchInputContainer>
-                            <SearchInput 
-                                placeholder="Procure aqui o seu médico"
+                            <DoctorSlider 
+                                title="Em Destaque"
+                                list={doctors}
                             />
-                        </SearchInputContainer>
-
-                        <DoctorSlider 
-                            title="Mais Procurados"
-                        />
-
-                        <DoctorSlider 
-                            title="Em Destaque"
-                        />
-                    </Container>
-                </ScrollView>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-    )
+                        </Container>
+                    </ScrollView>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+        )
+    }
 }

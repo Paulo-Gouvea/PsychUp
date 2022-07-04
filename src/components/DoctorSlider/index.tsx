@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { FlatList, TouchableOpacityProps } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import {
     Container,
@@ -8,18 +8,24 @@ import {
     Button,
     ButtonTitle,
     ButtonIconWrapper,
-    TestWrapper,
-    Test
+    DoctorCard,
+    DoctorCardImage,
+    DoctorCardInfo,
+    DoctorName,
+    DoctorSpecialization,
 } from "./styles";
 
 import { useTheme } from "styled-components/native";
 
-interface DoctorSliderProps {
+interface DoctorSliderProps extends TouchableOpacityProps{
     title: string;
+    list: readonly any[];
 }
 
 export function DoctorSlider({
-    title
+    title,
+    list,
+    ...rest
 }: DoctorSliderProps){
     const theme = useTheme();
 
@@ -42,16 +48,29 @@ export function DoctorSlider({
                 </Button>
             </Header>
 
-            <ScrollView
+            <FlatList
+                data={list}
+                renderItem={({item}) => (
+                    <DoctorCard
+                        {...rest}
+                    >
+                        <DoctorCardImage 
+                            source={{ uri: item.photo }}
+                        />
+                        <DoctorCardInfo>
+                            <DoctorName>
+                                Dr. {item.name}
+                            </DoctorName>
+
+                            <DoctorSpecialization>
+                                {item.specialization}
+                            </DoctorSpecialization>
+                        </DoctorCardInfo>
+                    </DoctorCard>
+                )}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-            >
-                <TestWrapper>
-                    <Test />
-                    <Test />
-                    <Test />
-                </TestWrapper>
-            </ScrollView>
+            />
         </Container>
     )
 }
