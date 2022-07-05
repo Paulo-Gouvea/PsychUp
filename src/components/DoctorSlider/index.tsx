@@ -18,9 +18,11 @@ import {
 import { useTheme } from "styled-components/native";
 import { useNavigation } from "@react-navigation/native";
 
+import { DoctorInterface } from "../../interfaces";
+
 interface DoctorSliderProps extends TouchableOpacityProps{
     title: string;
-    list: readonly any[];
+    list: DoctorInterface[];
 }
 
 export function DoctorSlider({
@@ -31,8 +33,8 @@ export function DoctorSlider({
     const theme = useTheme();
     const navigation = useNavigation();
 
-    function handleDoctorDetailsScreen(){
-        navigation.navigate("doctordetails")
+    function handleDoctorDetailsScreen(doctor: DoctorInterface){
+        navigation.navigate("doctordetails", doctor)
     }
 
     return (
@@ -58,7 +60,7 @@ export function DoctorSlider({
                 data={list}
                 renderItem={({item}) => (
                     <DoctorCard
-                        onPress={handleDoctorDetailsScreen}
+                        onPress={() => handleDoctorDetailsScreen(item)}
                         {...rest}
                     >
                         <DoctorCardImage 

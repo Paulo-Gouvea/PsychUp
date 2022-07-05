@@ -6,12 +6,18 @@ import {
     Title,
 } from './styles';
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { DoctorDetailsInfo } from "../../components/DoctorDetailsInfo";
 import { DoctorDetailsCard } from "../../components/DoctorDetailsCard";
 
+import { DoctorInterface } from "../../interfaces";
+
 export function DoctorDetails(){
     const navigation = useNavigation();
+    const route = useRoute();
+    const doctor = route.params as DoctorInterface;
+
+    console.log(doctor);
 
     function handleGoBack(){
         navigation.goBack();
@@ -29,20 +35,20 @@ export function DoctorDetails(){
             </Header>   
 
             <DoctorDetailsCard 
-                photo='http://www.github.com/paulo-gouvea.png'
-                name="Dr. Matthew Burke"
-                specialization="Cardiologist Specialist"
-                address="1901 Thornridge Cir. Shiloh, Hawaii 81063"
+                photo={doctor.photo}
+                name={`Dr. ${doctor.name}`}
+                specialization={doctor.specialization}
+                address={doctor.address}
             />
 
             <DoctorDetailsInfo 
                 title="Sobre o Doutor"
-                info="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis, cumque distinctio! Veritatis consequuntur fugit a doloribus. Quaerat incidunt, ipsa autem dolore animi aut, ab tenetur quos, molestiae sequi sint nemo."
+                info={doctor.about}
             />
 
             <DoctorDetailsInfo 
                 title="Horário de Consulta"
-                info="Seg - Sex, 10:00 AM - 18:00 PM"
+                info={doctor.work_schedule}
             />
         </Container>
     )

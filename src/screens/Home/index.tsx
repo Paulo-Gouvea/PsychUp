@@ -23,9 +23,11 @@ import { useAuth } from "../../hooks/auth";
 import { SearchInput } from "../../components/SearchInput";
 import { DoctorSlider } from "../../components/DoctorSlider";
 
+import { DoctorInterface } from "../../interfaces";
+
 export function Home(){
     const [loading, setLoading] = useState(true);
-    const [doctors, setDoctors] = useState([]);
+    const [doctors, setDoctors] = useState<DoctorInterface[]>([]);
 
     const { user } = useAuth();
 
