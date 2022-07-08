@@ -1,16 +1,12 @@
 import React from "react";
-import { GreenGoBackButton } from "../../components/GreenGoBackButton";
-import {
-    Container,
-    Header,
-    Title,
-} from './styles';
+import { Container } from './styles';
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { DoctorDetailsInfo } from "../../components/DoctorDetailsInfo";
 import { DoctorDetailsCard } from "../../components/DoctorDetailsCard";
 
 import { DoctorInterface } from "../../interfaces";
+import { HeaderWithGoBackButton } from "../../components/HeaderWithGoBackButton";
 
 export function DoctorDetails(){
     const navigation = useNavigation();
@@ -25,14 +21,10 @@ export function DoctorDetails(){
 
     return (
         <Container>
-            <Header>
-                <GreenGoBackButton 
-                    onPress={handleGoBack}
-                />
-                <Title>
-                    Detalhes do Doutor
-                </Title>
-            </Header>   
+            <HeaderWithGoBackButton 
+                handleGoBack={handleGoBack}
+                title="Detalhes do Doutor"
+            />             
 
             <DoctorDetailsCard 
                 photo={doctor.photo}
