@@ -13,10 +13,12 @@ export function DoctorDetails(){
     const route = useRoute();
     const doctor = route.params as DoctorInterface;
 
-    console.log(doctor);
-
     function handleGoBack(){
         navigation.goBack();
+    }
+
+    function handleGoTimeAndDateScreen(){
+        navigation.navigate('dateandtime');
     }
 
     return (
@@ -31,6 +33,7 @@ export function DoctorDetails(){
                 name={`Dr. ${doctor.name}`}
                 specialization={doctor.specialization}
                 address={doctor.address}
+                onPress={handleGoTimeAndDateScreen}
             />
 
             <DoctorDetailsInfo 

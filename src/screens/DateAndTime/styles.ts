@@ -1,23 +1,18 @@
 import styled, { css } from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { getStatusBarHeight, getBottomSpace } from "react-native-iphone-x-helper";
 
 export const Container = styled.View`
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    padding: ${getStatusBarHeight() + 60}px ${RFValue(25)}px ${getBottomSpace()}px;
+    align-items: flex-start;
 `;
 
 export const Title = styled.Text`
-    font-size: ${RFValue(23)}px;
+    margin: ${RFValue(32)}px 0 ${RFValue(15)}px;
+    font-size: ${RFValue(18)}px;
 
     ${({ theme }) => css`
         font-family: ${theme.FONTS.SOURCE_SERIF_PRO_REGULAR};
         color: ${theme.COLORS.BLACK_700};
     `};
-`;
-
-export const Helper = styled.View`
-    width: ${RFValue(35)}px;
-    height: ${RFValue(35)}px;
 `;

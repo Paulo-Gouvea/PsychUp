@@ -7,6 +7,7 @@ export declare global {
             home: undefined; 
             forgotpassword: undefined;
             doctordetails: DoctorInterface;
+            dateandtime: undefined;
         }
     }
 }

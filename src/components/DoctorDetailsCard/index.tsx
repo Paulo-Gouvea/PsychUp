@@ -1,4 +1,5 @@
 import React from "react";
+import { TouchableOpacityProps } from "react-native";
 import {
     Container,
     DoctorSummary,
@@ -11,7 +12,7 @@ import {
     DoctorCardButtonText,
 } from "./styles";
 
-interface DoctorDetailsCardProps {
+interface DoctorDetailsCardProps extends TouchableOpacityProps {
     photo: string;
     name: string;
     specialization: string;
@@ -22,7 +23,8 @@ export function DoctorDetailsCard({
     photo,
     name,
     specialization,
-    address
+    address,
+    ...rest
 }: DoctorDetailsCardProps){
     return (
         <Container>
@@ -40,7 +42,9 @@ export function DoctorDetailsCard({
                 </DoctorInfo>
             </DoctorSummary>
 
-            <DoctorCardButton>
+            <DoctorCardButton
+                {...rest}
+            >
                 <DoctorCardButtonText>
                     Agendar Consulta
                 </DoctorCardButtonText>

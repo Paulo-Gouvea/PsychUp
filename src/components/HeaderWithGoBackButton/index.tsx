@@ -2,6 +2,7 @@ import React from "react";
 import {
     Container,
     Title,
+    Helper
 } from './styles';
 
 import { GreenGoBackButton } from "../GreenGoBackButton";
@@ -20,9 +21,12 @@ export function HeaderWithGoBackButton({
             <GreenGoBackButton 
                 onPress={handleGoBack}
             />
+
             <Title>
                 {title}       
             </Title>
+
+            <Helper />
         </Container>  
     )
 }

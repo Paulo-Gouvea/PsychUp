@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { Home } from "../screens/Home";
 import { DoctorDetails } from "../screens/DoctorDetails";
+import { DateAndTime } from "../screens/DateAndTime";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -21,6 +22,11 @@ export function AppStackRoutes(){
             <Screen
                 name="doctordetails"
                 component={DoctorDetails}
+            />
+
+            <Screen
+                name="dateandtime"
+                component={DateAndTime}
             />
         </Navigator>
     )

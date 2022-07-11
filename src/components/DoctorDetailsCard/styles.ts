@@ -1,3 +1,4 @@
+import { TouchableOpacity } from "react-native";
 import styled, { css } from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -58,7 +59,7 @@ export const DoctorAddress = styled.Text`
     `};
 `;
 
-export const DoctorCardButton = styled.TouchableOpacity`
+export const DoctorCardButton = styled(TouchableOpacity)`
     background-color: ${({ theme }) => theme.COLORS.TEAL_900};
     width: 60%;
     height: 25%;
