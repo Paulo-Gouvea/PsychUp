@@ -3,51 +3,31 @@ import {
     Container,
     Day,
     Times,
-    TimeButton,
-    TimeButtonTitle,
 } from './styles';
 
-export function DateAndTimeContainer(){
+import { TimeButton } from "../TimeButton";
+interface DateAndTImeContainerProps {
+    day: string;
+    times: string[];
+}
+
+export function DateAndTimeContainer({
+    day,
+    times,
+}: DateAndTImeContainerProps){
     return (
         <Container>
-            <Day>6 de Janeiro</Day>
+            <Day>{day}</Day>
 
             <Times>
-                <TimeButton>
-                    <TimeButtonTitle>
-                        11:00
-                    </TimeButtonTitle>
-                </TimeButton>
-
-                <TimeButton>
-                    <TimeButtonTitle>
-                        11:30
-                    </TimeButtonTitle>
-                </TimeButton>
-
-                <TimeButton>
-                    <TimeButtonTitle>
-                        12:30
-                    </TimeButtonTitle>
-                </TimeButton>
-
-                <TimeButton>
-                    <TimeButtonTitle>
-                        13:30
-                    </TimeButtonTitle>
-                </TimeButton>
-
-                <TimeButton>
-                    <TimeButtonTitle>
-                        15:00
-                    </TimeButtonTitle>
-                </TimeButton>
-
-                <TimeButton>
-                    <TimeButtonTitle>
-                        17:00
-                    </TimeButtonTitle>
-                </TimeButton>
+                {
+                    times.map(item => (
+                        <TimeButton 
+                            key={item}
+                            title={item}
+                        />
+                    ))
+                }
             </Times>
         </Container>
     )
