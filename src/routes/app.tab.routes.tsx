@@ -9,6 +9,7 @@ const { Navigator, Screen } = createBottomTabNavigator();
 
 import { AppStackRoutes } from "./app.stack.routes";
 import { Home } from "../screens/Home";
+import { Favorites } from "../screens/Favorites";
 import { Profile } from "../screens/Profile";
 
 export function AppTabRoutes(){
@@ -29,8 +30,8 @@ export function AppTabRoutes(){
             }}
         >
             <Screen 
-                name="appstackroutes"
-                component={AppStackRoutes}
+                name="home"
+                component={Home}
                 options={{
                     tabBarIcon: (({}) => (
                         <Entypo
@@ -44,7 +45,7 @@ export function AppTabRoutes(){
 
             <Screen 
                 name="favorites"
-                component={Home}
+                component={Favorites}
                 options={{
                     tabBarIcon: (({}) => (
                         <Entypo

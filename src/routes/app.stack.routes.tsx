@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { Home } from "../screens/Home";
+import { AppTabRoutes } from "./app.tab.routes";
 import { DoctorDetails } from "../screens/DoctorDetails";
 import { DateAndTime } from "../screens/DateAndTime";
 
@@ -15,8 +15,8 @@ export function AppStackRoutes(){
             }}
         >
             <Screen
-                name="home"
-                component={Home}
+                name="apptabroutes"
+                component={AppTabRoutes}
             />
 
             <Screen
