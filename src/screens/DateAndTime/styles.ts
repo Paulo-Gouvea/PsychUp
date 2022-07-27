@@ -16,3 +16,7 @@ export const Title = styled.Text`
         color: ${theme.COLORS.BLACK_700};
     `};
 `;
+
+export const CalendarWrapper = styled.View`
+    width: 100%;
+`;
