@@ -5,7 +5,7 @@ import {
     Helper
 } from './styles';
 
-import { GreenGoBackButton } from "../GreenGoBackButton";
+import { GreenGoBackButton } from "../Buttons/GreenGoBackButton";
 
 interface HeaderWithGoBackButtonProps {
     handleGoBack: () => void;

@@ -2,11 +2,11 @@ import React from "react";
 import { Container } from './styles';
 
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { DoctorDetailsInfo } from "../../components/DoctorDetailsInfo";
-import { DoctorDetailsCard } from "../../components/DoctorDetailsCard";
+import { DoctorDetailsInfo } from "../../components/DoctorDetails/DoctorDetailsInfo";
+import { DoctorDetailsCard } from "../../components/DoctorDetails/DoctorDetailsCard";
 
 import { DoctorInterface } from "../../interfaces";
-import { HeaderWithGoBackButton } from "../../components/HeaderWithGoBackButton";
+import { HeaderWithGoBackButton } from "../../components/Headers/HeaderWithGoBackButton";
 
 export function DoctorDetails(){
     const navigation = useNavigation();

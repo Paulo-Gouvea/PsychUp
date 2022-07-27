@@ -36,11 +36,11 @@ import AppleImg from "../../assets/Apple.svg";
 import FacebookImg from "../../assets/Facebook.svg";
 
 import { AnimationModal } from "../../components/AnimationModal";
-import { Header } from "../../components/Header";
-import { Input } from "../../components/Input";
-import { PasswordInput } from "../../components/PasswordInput";
-import { Button } from "../../components/Button";
-import { SocialAccountButton } from "../../components/SocialAccountButton";
+import { Header } from "../../components/Headers/Header";
+import { Input } from "../../components/Inputs/Input";
+import { PasswordInput } from "../../components/Inputs/PasswordInput";
+import { Button } from "../../components/Buttons/Button";
+import { SocialAccountButton } from "../../components/Login_Screen/SocialAccountButton";
 
 export function Login(){
     const [email, setEmail] = useState("");

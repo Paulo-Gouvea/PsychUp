@@ -22,10 +22,10 @@ import successAnimation from "../../assets/SuccessAnimation.json";
 import errorAnimation from "../../assets/ErrorAnimation.json";
 import LogoImg from "../../assets/Logo.svg";
 
-import { Header } from "../../components/Header";
-import { Input } from "../../components/Input";
-import { Button } from "../../components/Button";
-import { GoBackButton } from "../../components/GoBackButton";
+import { Header } from "../../components/Headers/Header";
+import { Input } from "../../components/Inputs/Input";
+import { Button } from "../../components/Buttons/Button";
+import { GoBackButton } from "../../components/Buttons/GoBackButton";
 import { AnimationModal } from "../../components/AnimationModal";
 
 export function ForgotPassword(){

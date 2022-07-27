@@ -8,7 +8,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 
 // import { DoctorInterface } from "../../interfaces";
 
-import { HeaderWithGoBackButton } from "../../components/HeaderWithGoBackButton";
+import { HeaderWithGoBackButton } from "../../components/Headers/HeaderWithGoBackButton";
 // import { Button } from "../../components/Button";
 
 export function DateAndTime(){

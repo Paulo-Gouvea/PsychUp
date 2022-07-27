@@ -6,7 +6,7 @@ import {
     Title,
 } from "./styles";
 
-import loadingAnimation from "../../assets/Loading.json";
+import loadingAnimation from "../../../assets/Loading.json";
 
 interface Buttonprops extends TouchableOpacityProps {
     title: string;

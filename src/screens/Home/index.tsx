@@ -20,7 +20,7 @@ import firestore from "@react-native-firebase/firestore";
 
 import { useAuth } from "../../hooks/auth";
 
-import { SearchInput } from "../../components/SearchInput";
+import { SearchInput } from "../../components/Inputs/SearchInput";
 import { DoctorSlider } from "../../components/DoctorSlider";
 
 import { DoctorInterface } from "../../interfaces";

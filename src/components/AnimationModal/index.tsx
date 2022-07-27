@@ -13,7 +13,7 @@ import {
     ModalDescription,
 } from "./styles";
 
-import { Button } from "../Button";
+import { Button } from "../Buttons/Button";
 
 interface AppModalProps extends ModalProps {
     animationSource: string | AnimationObject | { uri: string; };

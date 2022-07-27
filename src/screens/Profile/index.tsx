@@ -15,7 +15,7 @@ import {
 
 import { useAuth } from "../../hooks/auth";
 
-import { ProfileOption } from "../../components/ProfileOption";
+import { ProfileOption } from "../../components/Profile_Screen/ProfileOption";
 
 export function Profile(){
     const { user, signOut } = useAuth();
